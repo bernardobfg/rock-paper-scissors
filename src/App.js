@@ -1,14 +1,11 @@
-import { ThemeProvider } from 'styled-components';
-import {theme} from './styles/theme';
 import GlobalStyle from './styles/global';
-import Routes from './routes';
-
+import GameRoom from "./pages/GameRoom"
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <Routes/>
+    <>
+      <GameRoom/>
       <GlobalStyle/>
-    </ThemeProvider>
+    </>
   );
 }
   

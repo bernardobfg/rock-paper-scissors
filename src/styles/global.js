@@ -8,6 +8,7 @@ export default createGlobalStyle`
         outline: 0;
         text-decoration: none;
         border: none;
+        font-family: 'Barlow Semi Condensed', sans-serif;
     };
     ul{
         list-style: none;
