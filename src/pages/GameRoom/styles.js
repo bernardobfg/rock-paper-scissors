@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import triangle from "../../assets/bg-triangle.svg";
+import pentagon from "../../assets/bg-pentagon.svg";
 
 export const Container = styled.div`
     width: 100vw;
@@ -11,7 +12,33 @@ export const Container = styled.div`
     background-color:hsl(237, 49%, 15%);
     background-image: radial-gradient(hsl(214, 43%, 35%), hsl(237, 49%, 15%));
 `
+export const ToggleArea = styled.div`
+    display: flex;
+    width: 100px;
+    justify-content: space-between;
+    align-items: center;
+    color: #EFEFEF;
+    margin-bottom: 10px;
+`
 
+export const ToggleButton = styled.button`
+    width: 40px;
+    height: 17px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: ${props => props.bonusVersion ? "flex-end" : "flex-start"};
+    span{
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        background-color: #33537F;
+        &:hover{
+            background-color: #396093;
+        }
+    }
+`
 export const TitleArea = styled.div`
     margin-top: 30px;
     width: 600px;
@@ -51,7 +78,7 @@ export const Score = styled.div`
 `
 
 export const MainArea = styled.div`
-    margin-top: 40px;    
+    margin-top: 20px;    
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -100,7 +127,7 @@ export const InnerModal = styled.div`
     justify-content: space-evenly;
     padding: 30px;
 
-    button{
+    >button{
         align-self: flex-end;
         margin-bottom: 50px;
         background-color:transparent;
@@ -124,38 +151,41 @@ export const InnerModal = styled.div`
 
 `
 export const GameOptions = styled.div`
-    margin-top: 50px;
-    width: 400px;
+    margin-top: 60px;
+    width: ${ props => props.bonusVersion? "450px": "400px"};
     height: 300px;
-    background-image: url(${triangle});
+    background-image: url(${ props => props.bonusVersion? pentagon: triangle});
     background-position: 50% 100%;
     background-repeat: no-repeat;
     display: flex;
     justify-content: center;
     z-index: 0;
+    @media(max-width: 768px){
+        width: 400px;
+    }
 `
 
 export const GameOption = styled.button`
-    width: 130px;
-    height: 130px;
+    width: ${ props => props.bonusVersion? "110px": "130px"};
+    height: ${ props => props.bonusVersion? "110px": "130px"};
     border-radius: 100%;
     cursor: pointer;
     background-color: hsl(0, 0%, 100%);
-    border: 15px solid ${props => props.color && props.color[0]};
+    border: ${props => props.bonusVersion? "10px":"15px"} solid ${props => props.color && props.color[0]};
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    bottom: ${props => props.name === "paper" && "-200px"};
+    bottom: ${(props) => renderBottomPosition(props)};
     @media(max-width: 768px) {
-        width: 100px;
-        height: 100px;
+        width: ${ props => props.bonusVersion? "90px": "100px"};
+        height: ${ props => props.bonusVersion? "90px": "100px"};
     }
     &:hover{
         transform: scale(1.1);
         transition: ease-in 300ms;
         opacity: 0.85;
-        border: 17px solid ${props => props.color &&  props.color[1]};
+        border: ${props => props.bonusVersion? "10px": "15px"} solid ${props => props.color &&  props.color[1]};
 
         img{
             transform: rotateZ(360deg);
@@ -165,6 +195,24 @@ export const GameOption = styled.button`
     }
 
 `
+
+const renderBottomPosition = (props) => {
+    if (props.name === "paper" || props.name === "lizard") {
+        if (props.bonusVersion) {
+            return "-220px";
+        }
+        else {
+            return "-200px";
+        }
+    }
+    else if (props.name === "rock" && props.bonusVersion) {
+        return "50px"
+    }
+    else if ((props.name === "scissors" || props.name === "spock") && props.bonusVersion) {
+        return "-30px"
+    }
+    return;
+}
 
 
 export const GameResult = styled.div`
