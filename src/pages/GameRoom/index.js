@@ -86,7 +86,7 @@ const GameRoom = () => {
     const handleSelectOption = (option) => {
         setSelectedOption(option)
         setIsTimeToPlay(false)
-        const randomNumber = Math.floor((Math.random() * 3));
+        const randomNumber = Math.floor((Math.random() * gameOptions.length));
         const randomOption = gameOptions[randomNumber];
         setTimeout(() => setSelectedRandomOption(randomOption), 1000)
         setTimeout(() => {
